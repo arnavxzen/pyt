@@ -1,0 +1,31 @@
+def can_swap_make_equal(s1, s2):
+    # If the strings are already equal, no swap is needed
+    if s1 == s2:
+        return True
+    
+    # If the strings have different lengths, they cannot be made equal by a single swap
+    if len(s1) != len(s2):
+        return False
+    
+    # Find the indices where characters differ
+    diff_indices = []
+    for i in range(len(s1)):
+        if s1[i] != s2[i]:
+            diff_indices.append(i)
+    
+    # If there are exactly two differences, check if swapping the characters resolves the differences
+    if len(diff_indices) == 2:
+        i, j = diff_indices
+        # Swap the characters in s1 and check if they match s2
+        s1_list = list(s1)
+        s1_list[i], s1_list[j] = s1_list[j], s1_list[i]
+        return ''.join(s1_list) == s2
+    
+    # If there are not exactly two differences, return False
+    return False
+
+# Test cases
+print(can_swap_make_equal("abca", "acba"))  # True
+print(can_swap_make_equal("abc", "def"))    # False
+print(can_swap_make_equal("hello", "holle"))  # True
+print(can_swap_make_equal("abc", "ab"))    # False
